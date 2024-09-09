@@ -5,6 +5,7 @@ enum Operator {
   subtract = '-',
   multiply = 'x',
   divide = '÷',
+  raiz = ''
 }
 
 
@@ -12,40 +13,64 @@ enum Operator {
 
 export const useCalculator = () => {
 
-  const [ formula, setFormula ] = useState( '' );
+  const [formula, setFormula] = useState('');
 
-  const [ number, setNumber ] = useState( '0' );
-  const [ prevNumber, setPrevNumber ] = useState( '0' );
+  const [number, setNumber] = useState('0');
+  const [prevNumber, setPrevNumber] = useState('0');
 
   const lastOperation = useRef<Operator>();
 
-  useEffect( () => {
-    if ( lastOperation.current ) {
-      const firstFormulaPart = formula.split( ' ' ).at( 0 );
-      setFormula( `${ firstFormulaPart } ${ lastOperation.current } ${ number }` );
+  useEffect(() => {
+    if (lastOperation.current) {
+      const firstFormulaPart = formula.split(' ').at(0);
+      setFormula(`${firstFormulaPart} ${lastOperation.current} ${number}`);
     } else {
-      setFormula( number );
+      setFormula(number);
     }
 
-  }, [ number ] );
+  }, [number]);
 
 
   useEffect(() => {
     const subResult = calculateSubResult();
-    setPrevNumber( `${ subResult }`);    
+    setPrevNumber(`${subResult}`);
   }, [formula])
-  
+
 
 
 
 
 
   const clean = () => {
-    setNumber( '0' );
-    setPrevNumber( '0' );
+    setNumber('0');
+    setPrevNumber('0');
     lastOperation.current = undefined;
-    setFormula( '' );
+    setFormula('');
   };
+
+  const moreOperatorsOneOver = () => {
+    if (formula === '0') {
+
+    }
+    else {
+
+      lastOperation.current = Operator.divide
+      setFormula('1 ÷ ' + formula)
+
+    }
+  }
+
+  const moreOperatorsPrecent = () => {
+    if (formula === '0') {
+
+    }
+    else {
+
+      lastOperation.current = Operator.divide
+      setFormula(formula + ' ÷ 100' )
+
+    }
+  }
 
   // Borrar el último número
   const deleteOperation = () => {
@@ -53,73 +78,73 @@ export const useCalculator = () => {
     let currentSign = '';
     let temporalNumber = number;
 
-    if ( number.includes( '-' ) ) {
+    if (number.includes('-')) {
       currentSign = '-';
-      temporalNumber = number.substring( 1 ); // 88
+      temporalNumber = number.substring(1); // 88
     }
 
-    if ( temporalNumber.length > 1 ) {
-      return setNumber( currentSign + temporalNumber.slice( 0, -1 ) ); // 
+    if (temporalNumber.length > 1) {
+      return setNumber(currentSign + temporalNumber.slice(0, -1)); // 
     }
 
-    setNumber( '0' );
+    setNumber('0');
 
   };
 
 
   const toggleSign = () => {
-    if ( number.includes( '-' ) ) {
-      return setNumber( number.replace( '-', '' ) );
+    if (number.includes('-')) {
+      return setNumber(number.replace('-', ''));
     }
 
-    setNumber( '-' + number );
+    setNumber('-' + number);
   };
 
 
-  const buildNumber = ( numberString: string ) => {
+  const buildNumber = (numberString: string) => {
 
-    if ( number.includes( '.' ) && numberString === '.' ) return;
+    if (number.includes('.') && numberString === '.') return;
 
-    if ( number.startsWith( '0' ) || number.startsWith( '-0' ) ) {
+    if (number.startsWith('0') || number.startsWith('-0')) {
 
       // Punto decimal
-      if ( numberString === '.' ) {
-        return setNumber( number + numberString );
+      if (numberString === '.') {
+        return setNumber(number + numberString);
       }
 
       // Evaluar si es otro cero y no hay punto
-      if ( numberString === '0' && number.includes( '.' ) ) {
-        return setNumber( number + numberString );
+      if (numberString === '0' && number.includes('.')) {
+        return setNumber(number + numberString);
       }
 
       // Evaluar si es diferente de cero, no hay punto, y es el primer numero
-      if ( numberString !== '0' && !number.includes( '.' ) ) {
-        return setNumber( numberString );
+      if (numberString !== '0' && !number.includes('.')) {
+        return setNumber(numberString);
       }
 
       // Evitar 000000.00
-      if ( numberString === '0' && !number.includes( '.' ) ) {
+      if (numberString === '0' && !number.includes('.')) {
         return;
       }
 
-      return setNumber( number + numberString );
+      return setNumber(number + numberString);
     }
 
 
-    setNumber( number + numberString );
+    setNumber(number + numberString);
 
   };
 
   const setLastNumber = () => {
     calculateResult();
-    
-    if ( number.endsWith( '.' ) ) {
-      setPrevNumber( number.slice( 0, -1 ) );
+
+    if (number.endsWith('.')) {
+      setPrevNumber(number.slice(0, -1));
     } else {
-      setPrevNumber( number );
+      setPrevNumber(number);
     }
 
-    setNumber( '0' );
+    setNumber('0');
   };
 
   const divideOperation = () => {
@@ -146,22 +171,22 @@ export const useCalculator = () => {
   const calculateResult = () => {
 
     const result = calculateSubResult();
-    setFormula( `${ result }` );
+    setFormula(`${result}`);
 
     lastOperation.current = undefined;
-    setPrevNumber( '0' );
+    setPrevNumber('0');
   };
 
   const calculateSubResult = (): number => {
 
-    const [ firstValue, operation, secondValue ] = formula.split( ' ' );
+    const [firstValue, operation, secondValue] = formula.split(' ');
 
-    const num1 = Number( firstValue );
-    const num2 = Number( secondValue ); //NaN
+    const num1 = Number(firstValue);
+    const num2 = Number(secondValue); //NaN
 
-    if ( isNaN( num2 ) ) return num1;
+    if (isNaN(num2)) return num1;
 
-    switch ( operation ) {
+    switch (operation) {
 
       case Operator.add:
         return num1 + num2;
@@ -176,7 +201,7 @@ export const useCalculator = () => {
         return num1 / num2;
 
       default:
-        throw new Error( 'Operation not implemented' );
+        throw new Error('Operation not implemented');
     }
 
   };
@@ -199,6 +224,8 @@ export const useCalculator = () => {
     subtractOperation,
     addOperation,
     calculateResult,
+    moreOperatorsOneOver,
+    moreOperatorsPrecent
   };
 }
 
