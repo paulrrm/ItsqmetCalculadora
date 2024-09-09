@@ -14,8 +14,8 @@ const CalculatorScreen = () => {
         </View>
         <View style ={globalStyles.filas}>
             <CalculatorBotton onPress={()=>botonAccion('1/x')} label='1/x'   blackText = {true} color={colors.lightGray}/>
-            <CalculatorBotton onPress={()=>botonAccion('sqrt')} label='sqt'   blackText = {true} color={colors.lightGray}/>
-            <CalculatorBotton onPress={()=>botonAccion('pow')} label='pow'   blackText = {true} color={colors.lightGray}/>
+            <CalculatorBotton onPress={()=>botonAccion('sqrt')} label='√'   blackText = {true} color={colors.lightGray}/>
+            <CalculatorBotton onPress={()=>botonAccion('pow')} label='x²'   blackText = {true} color={colors.lightGray}/>
             <CalculatorBotton onPress={()=>botonAccion('%')}   label='%'   blackText = {true} color={colors.lightGray}/>
         </View>
         <View style ={globalStyles.filas}>
