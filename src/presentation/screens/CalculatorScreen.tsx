@@ -5,17 +5,23 @@ import CalculatorBotton from '../components/CalculatorBotton'
 import useCalculator from '../hoocks/useCalculator'
 
 const CalculatorScreen = () => {
-    const {numero,buildNumber}=useCalculator()
+    const {numero,buildNumber,botonAccion}=useCalculator()
   return (
     <View style = {globalStyles.calculatorContiener}>
         <View style={globalStyles.separadores}>
-            <Text style={globalStyles.mainResult}>{numero}</Text>
+            <Text adjustsFontSizeToFit numberOfLines={1} style={globalStyles.mainResult}>{numero}</Text>
             <Text style={globalStyles.subResult}>15</Text>
         </View>
         <View style ={globalStyles.filas}>
-            <CalculatorBotton onPress={()=>console.log('C')} label='C'   blackText = {true} color={colors.lightGray}/>
-            <CalculatorBotton onPress={()=>console.log('+')} label='+/-' blackText = {true} color={colors.lightGray}/>
-            <CalculatorBotton onPress={()=>console.log('d')} label='del' blackText = {true} color={colors.lightGray}/>
+            <CalculatorBotton onPress={()=>botonAccion('1/x')} label='1/x'   blackText = {true} color={colors.lightGray}/>
+            <CalculatorBotton onPress={()=>botonAccion('sqrt')} label='sqt'   blackText = {true} color={colors.lightGray}/>
+            <CalculatorBotton onPress={()=>botonAccion('pow')} label='pow'   blackText = {true} color={colors.lightGray}/>
+            <CalculatorBotton onPress={()=>botonAccion('%')}   label='%'   blackText = {true} color={colors.lightGray}/>
+        </View>
+        <View style ={globalStyles.filas}>
+            <CalculatorBotton onPress={()=>botonAccion('C')} label='C'   blackText = {true} color={colors.lightGray}/>
+            <CalculatorBotton onPress={()=>botonAccion('+/-')} label='+/-' blackText = {true} color={colors.lightGray}/>
+            <CalculatorBotton onPress={()=>botonAccion('d')} label='del' blackText = {true} color={colors.lightGray}/>
             <CalculatorBotton onPress={()=>console.log('÷')} label='÷'   color={colors.orange}/>
 
 
