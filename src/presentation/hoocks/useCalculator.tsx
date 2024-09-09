@@ -11,9 +11,11 @@ const useCalculator = () => {
     if (accionString === "d") {
       if (numero === "0" || numero === "-0") return;
       if (numero.length === 1) return setnumero("0");
+      if(numero.length === 2 && numero.includes('-')) return setnumero('0')
       if (numero.length > 1) {
         return setnumero(numero.slice(0, -1));
       }
+      
     } ////cambio de signo
     if (accionString === "+/-") {
       if (numero.includes("-")) {
