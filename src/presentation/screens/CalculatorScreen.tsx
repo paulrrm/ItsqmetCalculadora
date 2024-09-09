@@ -14,7 +14,9 @@ const CalculatorScreen = () => {
         divideOperation, multiplyOperation, subtractOperation, addOperation,
         calculateResult,
         moreOperatorsOneOver,
-        moreOperatorsPrecent
+        moreOperatorsPrecent,
+        moreOperatorsExpo,
+        moreOperatorsSqrt
     } = useCalculator();
 
     return (
@@ -52,8 +54,8 @@ const CalculatorScreen = () => {
 
                 <CalculatorButton onPress={moreOperatorsOneOver} label="1/x" blackText color={colors.lightGray} />
                 <CalculatorButton onPress={moreOperatorsPrecent} label="%" blackText color={colors.lightGray} />
-                <CalculatorButton onPress={deleteOperation} label="x²" blackText color={colors.lightGray} />
-                <CalculatorButton onPress={divideOperation} label="√" blackText color={colors.lightGray} />
+                <CalculatorButton onPress={moreOperatorsExpo} label="exp" blackText color={colors.lightGray} />
+                <CalculatorButton onPress={moreOperatorsSqrt} label="√" blackText color={colors.lightGray} />
 
             </View>
             <View style={styles.row}>

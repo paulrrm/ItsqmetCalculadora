@@ -5,7 +5,9 @@ enum Operator {
   subtract = '-',
   multiply = 'x',
   divide = '÷',
-  raiz = ''
+  raiz = '√',
+  expo = '^',
+  
 }
 
 
@@ -71,6 +73,30 @@ export const useCalculator = () => {
 
     }
   }
+  
+  const moreOperatorsExpo = () => {
+    if (formula === '0') {
+
+    }
+    else {
+      setLastNumber();
+      lastOperation.current = Operator.expo
+      
+
+    }
+  }
+  const moreOperatorsSqrt= () => {
+    if (formula === '0') {
+
+    }
+    else {
+      setLastNumber();
+      lastOperation.current = Operator.raiz
+      
+
+    }
+  }
+
 
   // Borrar el último número
   const deleteOperation = () => {
@@ -183,8 +209,19 @@ export const useCalculator = () => {
 
     const num1 = Number(firstValue);
     const num2 = Number(secondValue); //NaN
+    if(firstValue === '√')
+    {
+      
+    }
 
-    if (isNaN(num2)) return num1;
+    if (isNaN(num2)) {
+      if(operation === '√')
+        {
+          
+          return Math.sqrt(num1)
+        }
+      return num1
+    };
 
     switch (operation) {
 
@@ -199,6 +236,9 @@ export const useCalculator = () => {
 
       case Operator.divide:
         return num1 / num2;
+
+      case Operator.expo:
+        return Math.pow(num2, num1);
 
       default:
         throw new Error('Operation not implemented');
@@ -225,7 +265,9 @@ export const useCalculator = () => {
     addOperation,
     calculateResult,
     moreOperatorsOneOver,
-    moreOperatorsPrecent
+    moreOperatorsPrecent,
+    moreOperatorsExpo,
+    moreOperatorsSqrt
   };
 }
 
