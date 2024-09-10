@@ -92,7 +92,7 @@ export const useCalculator = () => {
     else {
       setLastNumber();
       lastOperation.current = Operator.raiz
-      
+      setFormula(formula + ' √  ' )
 
     }
   }
