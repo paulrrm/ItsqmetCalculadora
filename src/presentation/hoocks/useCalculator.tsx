@@ -92,7 +92,7 @@ export const useCalculator = () => {
     else {
       setLastNumber();
       lastOperation.current = Operator.raiz
-      setFormula(formula + ' √  ' )
+      setFormula(formula + ' √ 2' )
 
     }
   }
@@ -209,19 +209,12 @@ export const useCalculator = () => {
 
     const num1 = Number(firstValue);
     const num2 = Number(secondValue); //NaN
-    if(firstValue === '√')
-    {
-      
-    }
-
+    
     if (isNaN(num2)) {
-      if(operation === '√')
-        {
-          
-          return Math.sqrt(num1)
-        }
+      
       return num1
     };
+    
 
     switch (operation) {
 
@@ -238,7 +231,9 @@ export const useCalculator = () => {
         return num1 / num2;
 
       case Operator.expo:
-        return Math.pow(num2, num1);
+        return Math.pow( num1 , num2);
+      case Operator.raiz:
+        return Math.sqrt(num1);
 
       default:
         throw new Error('Operation not implemented');
